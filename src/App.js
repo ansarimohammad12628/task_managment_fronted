@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+
+import Login from "./Pages/AuthPages/LoginPage/index";
+import Register from "./Pages/AuthPages/RegisterPage/index";
+
+import MainLayouts from "./Layouts/MainLayouts";
+import Dashboard from "./Pages/Dashboard/index";
+import Employees from "./Pages/EmployeePages/Index";
+import Task from "./Pages/TaskPages/index";
+import Reports from "./Pages/Reports/index";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+   <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/register" element={<Register />} />
+
+        <Route
+          element={
+            <ProtectedRoute>
+              <MainLayouts />
+            </ProtectedRoute>
+          }
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route path="/dashboard" element={<Dashboard />} />
+
+          <Route path="/employees" element={<Employees />} />
+
+          <Route path="/tasks" element={<Task />} />
+
+          <Route path="/reports" element={<Reports />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

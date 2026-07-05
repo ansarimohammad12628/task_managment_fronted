@@ -1,13 +1,745 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+
+ body {
+  overflow-x: hidden;
+}
+.auth-container {
+  min-height: 100vh;
+  background: #f4f6f9;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.auth-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+}
+
+.auth-card .card-body {
+  padding: 35px;
+}
+
+.auth-card h2 {
+  font-weight: 700;
+}
+
+.auth-card .form-control {
+  height: 45px;
+}
+
+.auth-card .btn {
+  height: 45px;
+  font-weight: 600;
+}
+
+.auth-card a {
+  text-decoration: none;
+}
+
+
+/* ===========================
+  Header
+=========================== */
+
+
+
+.app-header {
+  height: 64px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.header-brand {
+  color: #111827;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.notification-icon {
+  color: #4b5563;
+  cursor: pointer;
+  position: relative;
+}
+
+.notification-dot {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid #fff;
+}
+
+/* ===========================
+  Sidebar
+=========================== */
+
+.sidebar {
+  height: 100vh;
+  width: 250px;
+  min-width: 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: #111827;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.sidebar-brand {
+  height: 64px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-logo {
+  width: 34px;
+  height: 34px;
+  background: #6366f1;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.sidebar-link {
+  color: rgba(255, 255, 255, 0.65) !important;
+  border-left: 3px solid transparent;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  transition: all 0.15s ease-in-out;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff !important;
+}
+
+.sidebar-link.active {
+  background: rgba(99, 102, 241, 0.18);
+  border-left: 3px solid #6366f1;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ===========================
+   Dashboard
+=========================== */
+
+.dashboard-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* ===========================
+   Dashboard Cards
+=========================== */
+
+.dashboard-card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-card .card-body {
+  padding: 25px;
+}
+
+.dashboard-card h6 {
+  color: #6c757d;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.dashboard-card h2 {
+  font-size: 34px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.dashboard-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* ===========================
+   Icon Colors
+=========================== */
+
+.bg-primary-light {
+  background: #0d6efd;
+}
+
+.bg-success-light {
+  background: #198754;
+}
+
+.bg-warning-light {
+  background: #ffc107;
+  color: #000;
+}
+
+.bg-danger-light {
+  background: #dc3545;
+}
+
+/* ===========================
+   Card Section
+=========================== */
+
+.dashboard-section {
+  border: none;
+  border-radius: 15px;
+}
+
+.dashboard-section .card-body {
+  padding: 25px;
+}
+
+.dashboard-section h5 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.table thead {
+  background: #f8f9fa;
+}
+
+.table thead th {
+  font-weight: 700;
+  border-bottom: none;
+}
+
+.table tbody tr {
+  transition: .3s;
+}
+
+.table tbody tr:hover {
+  background: #f7f9fc;
+}
+
+/* ===========================
+   Badge
+=========================== */
+
+.badge {
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 20px;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.quick-btn {
+  border-radius: 10px;
+  padding: 11px;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.quick-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   Loading
+=========================== */
+
+.dashboard-loader {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:991px) {
+
+.dashboard-card{
+
+margin-bottom:20px;
+
+}
+
+.dashboard-card h2{
+
+font-size:28px;
+
+}
+
+.dashboard-icon{
+
+width:55px;
+height:55px;
+
+}
+
+}
+
+@media (max-width:768px){
+
+.dashboard-title{
+
+font-size:24px;
+
+}
+
+.dashboard-card h2{
+
+font-size:24px;
+
+}
+
+.dashboard-section{
+
+margin-top:20px;
+
+}
+
+.table{
+
+font-size:14px;
+
+}
+
+.quick-btn{
+
+margin-top:15px;
+
+}
+
+}
+
+
+
+
+
+
+/* ==========================================================================
+   Employee Module Theme
+   Palette: deep indigo (primary actions) + teal (status/active) on a
+   cool slate surface. Sora for headings/labels, Inter for body & data.
+   ========================================================================== */
+
+
+
+:root {
+  --emp-bg: #f3f5fa;
+  --emp-surface: #ffffff;
+  --emp-surface-alt: #f8f9fc;
+  --emp-border: #e5e8f0;
+
+  --emp-text: #1b1f3b;
+  --emp-text-muted: #6b7280;
+
+  --emp-primary: #4f46e5;
+  --emp-primary-dark: #4338ca;
+  --emp-primary-soft: #eef0fd;
+
+  --emp-accent: #0d9488;
+  --emp-accent-soft: #e3f6f2;
+
+  --emp-danger: #e4483a;
+  --emp-danger-soft: #fdecec;
+
+  --emp-warning: #b8860b;
+  --emp-warning-soft: #fbf1dd;
+
+  --emp-radius-lg: 16px;
+  --emp-radius-md: 10px;
+  --emp-radius-sm: 8px;
+  --emp-shadow: 0 1px 2px rgba(20, 24, 51, 0.04), 0 8px 24px -12px rgba(20, 24, 51, 0.12);
+}
+
+/* ---------------- Page shell ---------------- */
+
+.module-root {
+  background: var(--emp-bg);
+  min-height: 100%;
+  padding: 28px 32px 48px;
+  font-family: "Inter", sans-serif;
+  color: var(--emp-text);
+}
+
+.module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.module-title {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  color: var(--emp-text);
+  margin: 0;
+  position: relative;
+  padding-left: 14px;
+}
+
+.module-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, var(--emp-primary), var(--emp-accent));
+}
+
+.module-subtitle {
+  margin: 4px 0 0 14px;
+  font-size: 0.85rem;
+  color: var(--emp-text-muted);
+}
+
+/* Primary action button */
+
+.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--emp-primary);
+  border: none;
+  padding: 10px 18px;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  font-size: 0.88rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px -6px rgba(79, 70, 229, 0.55);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.secondary-btn:hover,
+.secondary-btn:focus {
+  background: var(--emp-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px -6px rgba(67, 56, 202, 0.55);
+}
+
+.secondary-btn svg {
+  font-size: 0.85rem;
+}
+
+/* ---------------- Table card ---------------- */
+
+.table-card {
+  background: var(--emp-surface);
+  border: 1px solid var(--emp-border);
+  border-radius: var(--emp-radius-lg);
+  box-shadow: var(--emp-shadow);
+  padding: 6px;
+  overflow: hidden;
+}
+
+/* PrimeReact overrides, scoped to this table */
+
+.p-datatable-main .p-datatable-header,
+.p-datatable-main .p-datatable-thead > tr > th {
+  background: var(--emp-surface-alt);
+  color: var(--emp-text-muted);
+  font-family: "Sora", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: none;
+  border-bottom: 1px solid var(--emp-border);
+  padding: 14px 16px;
+}
+
+.p-datatable-main .p-datatable-tbody > tr {
+  transition: background 0.12s ease;
+}
+
+.p-datatable-main .p-datatable-tbody > tr > td {
+  padding: 12px 16px;
+  border: none;
+  border-bottom: 1px solid var(--emp-border);
+  font-size: 0.88rem;
+  color: var(--emp-text);
+  vertical-align: middle;
+}
+
+.p-datatable-main .p-datatable-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+.p-datatable-main .p-datatable-tbody > tr:hover {
+  background: var(--emp-surface-alt);
+}
+
+.p-datatable-main .p-paginator {
+  border: none;
+  border-top: 1px solid var(--emp-border);
+  padding: 10px 12px;
+  background: var(--emp-surface);
+}
+
+.p-datatable-main .p-sortable-column-icon {
+  color: #b3b8c8;
+}
+
+/* Employee identity cell */
+
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.employee-avatar {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: #ffffff;
+}
+
+.employee-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--emp-text);
+  line-height: 1.2;
+}
+
+.employee-email {
+  font-size: 0.76rem;
+  color: var(--emp-text-muted);
+  line-height: 1.2;
+}
+
+/* Role cell */
+
+.role-title {
+  font-weight: 500;
+  color: var(--emp-text);
+  line-height: 1.2;
+}
+
+.role-department {
+  font-size: 0.76rem;
+  color: var(--emp-text-muted);
+}
+
+/* Status pill */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  font-family: "Sora", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.status-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.status-badge.active {
+  background: var(--emp-accent-soft);
+  color: var(--emp-accent);
+}
+
+.status-badge.in-active {
+  background: var(--emp-danger-soft);
+  color: var(--emp-danger);
+}
+
+/* Action buttons */
+
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--emp-radius-sm);
+  border: 1px solid var(--emp-border);
+  background: var(--emp-surface);
+  color: var(--emp-text-muted);
+  font-size: 0.82rem;
+  transition: all 0.15s ease;
+}
+
+.action-btn:hover {
+  border-color: var(--emp-primary);
+  color: var(--emp-primary);
+  background: var(--emp-primary-soft);
+  transform: translateY(-1px);
+}
+
+.action-btn.warning:hover {
+  border-color: var(--emp-warning);
+  color: var(--emp-warning);
+  background: var(--emp-warning-soft);
+}
+
+.action-btn.danger:hover {
+  border-color: var(--emp-danger);
+  color: var(--emp-danger);
+  background: var(--emp-danger-soft);
+}
+
+/* ---------------- Modals (Add / Edit Employee) ---------------- */
+
+.employee-modal .modal-content {
+  border: none;
+  border-radius: var(--emp-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 60px -12px rgba(20, 24, 51, 0.35);
+}
+
+.employee-modal .modal-header {
+  background: var(--emp-surface-alt);
+  border-bottom: 1px solid var(--emp-border);
+  padding: 18px 24px;
+}
+
+.employee-modal .modal-title {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--emp-text);
+}
+
+.employee-modal .modal-body {
+  padding: 24px;
+  background: var(--emp-surface);
+}
+
+.employee-modal .form-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: "Sora", sans-serif;
+  color: var(--emp-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.employee-modal .form-control {
+  border: 1px solid var(--emp-border);
+  border-radius: var(--emp-radius-sm);
+  padding: 9px 12px;
+  font-size: 0.9rem;
+  background: var(--emp-surface-alt);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.employee-modal .form-control:focus {
+  border-color: var(--emp-primary);
+  background: var(--emp-surface);
+  box-shadow: 0 0 0 3px var(--emp-primary-soft);
+}
+
+.employee-modal .modal-footer {
+  border-top: 1px solid var(--emp-border);
+  padding: 16px 24px;
+  background: var(--emp-surface-alt);
+}
+
+.employee-modal .btn-primary {
+  background: var(--emp-primary);
+  border-color: var(--emp-primary);
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.employee-modal .btn-primary:hover,
+.employee-modal .btn-primary:focus {
+  background: var(--emp-primary-dark);
+  border-color: var(--emp-primary-dark);
+}
+
+.employee-modal .btn-secondary {
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: transparent;
+  border-color: var(--emp-border);
+  color: var(--emp-text-muted);
+}
+
+.employee-modal .btn-secondary:hover {
+  background: var(--emp-surface-alt);
+  color: var(--emp-text);
+  border-color: var(--emp-border);
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 640px) {
+  .module-root {
+    padding: 18px 14px 32px;
+  }
+
+  .module-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .secondary-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
