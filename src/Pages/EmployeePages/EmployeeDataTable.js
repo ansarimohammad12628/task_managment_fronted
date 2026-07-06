@@ -65,7 +65,7 @@ const EmployeeDataTable = ({
 
   // ================= Delete =================
 
-  const handleDelete = async (row) => {
+  const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Delete Employee?",
       text: "This employee will be deleted.",
@@ -80,7 +80,7 @@ const EmployeeDataTable = ({
 
     try {
       const res = await axiosInstance.delete(
-        `/employee/deleteEmployee/${row.id}`
+        `/employee/deleteEmployee/${id}`
       );
 
       if (res.data.success) {
@@ -94,7 +94,12 @@ const EmployeeDataTable = ({
         setUpdatedEmployeeTable(new Date().getTime());
       }
     } catch (error) {
-      console.log(error);
+        Swal.fire({
+      icon: "error",
+      title: "Delete Failed",
+      text:
+        error.response?.data?.message || "Something went wrong.",
+    });
     }
   };
 
