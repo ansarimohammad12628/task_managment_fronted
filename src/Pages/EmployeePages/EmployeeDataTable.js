@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { FaBan, FaEdit, FaTrash } from "react-icons/fa";
-import { ImBlocked } from "react-icons/im";
 import Swal from "sweetalert2";
-
 import axiosInstance from "../../axios";
 import DynamicTable from "../../Components/DynamicTable";
 import UpdateEmployee from "./EditEmployee";

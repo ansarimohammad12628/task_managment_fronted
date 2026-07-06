@@ -37,6 +37,27 @@
 }
 
 
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 18px;
+  z-index: 10;
+  transition: 0.3s;
+}
+
+.password-toggle:hover {
+  color: #0d6efd;
+}
+
+.pe-5 {
+  padding-right: 45px !important;
+}
+
+
 /* ===========================
   Header
 =========================== */
