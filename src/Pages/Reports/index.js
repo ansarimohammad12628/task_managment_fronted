@@ -15,12 +15,13 @@ const Reports = () => {
   // Get Reports
   // ============================
 
+useEffect(() => {
   const getReports = async () => {
     try {
       setLoading(true);
 
       const res = await axiosInstance.get(
-        `/report/taskReport?status=${status}`,
+        `/report/taskReport?status=${status}`
       );
 
       if (res.data.success) {
@@ -36,9 +37,8 @@ const Reports = () => {
     }
   };
 
-  useEffect(() => {
-    getReports();
-  }, [status]);
+  getReports();
+}, [status]);
 
   const handleExportExcel = () => {
     window.open(`${CONFIG.BASE_URL}/report/exportExcel?status=${status}`);
