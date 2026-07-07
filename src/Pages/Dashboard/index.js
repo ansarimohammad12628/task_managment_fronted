@@ -125,7 +125,7 @@ const Dashboard = () => {
 
       <Row>
 
-        <Col lg={8}>
+        <Col lg={12}>
 
           <Card className="shadow-sm">
 
@@ -203,34 +203,6 @@ const Dashboard = () => {
                 </tbody>
 
               </Table>
-
-            </Card.Body>
-
-          </Card>
-
-        </Col>
-
-        <Col lg={4}>
-
-          <Card className="shadow-sm">
-
-            <Card.Body>
-
-              <h5>
-                Quick Actions
-              </h5>
-
-              <button className="btn btn-primary w-100 mt-3">
-                Add Employee
-              </button>
-
-              <button className="btn btn-success w-100 mt-3">
-                Add Task
-              </button>
-
-              <button className="btn btn-warning w-100 mt-3">
-                View Reports
-              </button>
 
             </Card.Body>
 
