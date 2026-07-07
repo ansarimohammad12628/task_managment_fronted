@@ -21,7 +21,7 @@ const DynamicTable = ({ data = [], columns = [], loading = false }) => {
           style={col.style}
           className={col.className}
           headerClassName={col.className}
-          sortable
+          sortable={col.sortable !== false}
         />
       ))}
     </DataTable>

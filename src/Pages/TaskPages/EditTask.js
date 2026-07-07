@@ -33,18 +33,20 @@ const EditTask = ({ show, handleClose, taskId, getAllTasks }) => {
   // keep track of every blob url created, so we can revoke them all on cleanup
   const objectUrlsRef = useRef([]);
 
-  useEffect(() => {
-    if (show && taskId) {
-      getEmployees();
-      getTaskById();
-    }
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     if (show && taskId) {
+  //       await getEmployees();
+  //       await getTaskById();
+  //     }
+  //   };
 
-    // reset everything when modal closes / taskId changes
-    return () => {
-      resetAttachmentState();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [show, taskId]);
+  //   loadData();
+
+  //   return () => {
+  //     resetAttachmentState();
+  //   };
+  // }, [show, taskId,getTaskById(())]);
 
   const resetAttachmentState = () => {
     setAttachment(null);
@@ -67,40 +69,49 @@ const EditTask = ({ show, handleClose, taskId, getAllTasks }) => {
     }
   };
 
-  const getTaskById = async () => {
+useEffect(() => {
+  const loadData = async () => {
+    if (!show || !taskId) return;
+
+    await getEmployees();
+
     try {
       setLoading(true);
 
       const res = await axiosInstance.get(`/task/getTaskById/${taskId}`);
 
       if (res.data.success) {
-        const task = res.data.data;
+        const task = res.data.data[0];
 
         setFormData({
-          employee_id: task.employee_id || "",
+          employee_id: Number(task.employee_id),
           title: task.title || "",
           description: task.description || "",
           priority: task.priority || "",
           status: task.status || "",
-          start_date: task.start_date ? task.start_date.split("T")[0] : "",
-          due_date: task.due_date ? task.due_date.split("T")[0] : "",
+          start_date: task.start_date
+            ? task.start_date.split("T")[0]
+            : "",
+          due_date: task.due_date
+            ? task.due_date.split("T")[0]
+            : "",
         });
 
-        // agar task ke sath attachment hai, tabhi preview fetch karo
         if (task.attachment) {
           fetchOldAttachment(taskId);
         }
       }
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: error.response?.data?.message || "Failed to fetch task.",
-      });
     } finally {
       setLoading(false);
     }
   };
+
+  loadData();
+
+  return () => {
+    resetAttachmentState();
+  };
+}, [show, taskId]);
 
   // Backend route is JWT protected and streams the raw file (image/pdf) using
   // the task id, so we fetch it as a blob (with an explicit Authorization
@@ -110,18 +121,14 @@ const EditTask = ({ show, handleClose, taskId, getAllTasks }) => {
     try {
       setAttachmentLoading(true);
 
-      const res = await axiosInstance.get(
-        `/task/getTaskAttachmentById/${id}`,
-        {
-          responseType: "blob",
-          headers: {
-            Authorization: `Bearer ${getAuthToken()}`,
-          },
-        }
-      );
+      const res = await axiosInstance.get(`/task/getTaskAttachmentById/${id}`, {
+        responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+        },
+      });
 
-      const contentType =
-        res.headers["content-type"] || res.data?.type || "";
+      const contentType = res.headers["content-type"] || res.data?.type || "";
 
       const blobUrl = URL.createObjectURL(res.data);
       objectUrlsRef.current.push(blobUrl);
@@ -228,7 +235,7 @@ const EditTask = ({ show, handleClose, taskId, getAllTasks }) => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        }
+        },
       );
 
       if (res.data.success) {

@@ -57,6 +57,7 @@ const Task = () => {
     };
 
     const handleEdit = (task) => {
+         console.log(task);
         setSelectedTaskId(task.id);
         setShowUpdateModal(true);
     };

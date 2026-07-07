@@ -764,3 +764,49 @@ margin-top:15px;
     justify-content: center;
   }
 }
+
+
+/* Priority pill (Task module) */
+
+.priority-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  font-family: "Sora", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.priority-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.priority-badge.high {
+  background: var(--emp-danger-soft);
+  color: var(--emp-danger);
+}
+
+.priority-badge.medium {
+  background: var(--emp-warning-soft);
+  color: var(--emp-warning);
+}
+
+.priority-badge.low {
+  background: var(--emp-accent-soft);
+  color: var(--emp-accent);
+}
+
+.p-datatable-main .p-datatable-tbody > tr > td {
+  white-space: nowrap;
+}
+
+.p-datatable-main .p-datatable-thead > tr > th {
+  white-space: nowrap;
+}

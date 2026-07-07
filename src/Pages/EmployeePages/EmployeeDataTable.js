@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaBan, FaEdit, FaTrash } from "react-icons/fa";
+import {  FaEdit, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axiosInstance from "../../axios";
 import DynamicTable from "../../Components/DynamicTable";
@@ -45,11 +45,7 @@ const formatSalary = (value) => {
   return `₹${num.toLocaleString("en-IN")}`;
 };
 
-const EmployeeDataTable = ({
-  employees,
-  loading,
-  setUpdatedEmployeeTable,
-}) => {
+const EmployeeDataTable = ({ employees, loading, setUpdatedEmployeeTable }) => {
   const [showEmployee, setShowEmployee] = useState(false);
   const [tableRowData, setTableRowData] = useState({});
 
@@ -79,9 +75,7 @@ const EmployeeDataTable = ({
     if (!result.isConfirmed) return;
 
     try {
-      const res = await axiosInstance.delete(
-        `/employee/deleteEmployee/${id}`
-      );
+      const res = await axiosInstance.delete(`/employee/deleteEmployee/${id}`);
 
       if (res.data.success) {
         Swal.fire({
@@ -94,19 +88,55 @@ const EmployeeDataTable = ({
         setUpdatedEmployeeTable(new Date().getTime());
       }
     } catch (error) {
-        Swal.fire({
-      icon: "error",
-      title: "Delete Failed",
-      text:
-        error.response?.data?.message || "Something went wrong.",
-    });
+      Swal.fire({
+        icon: "error",
+        title: "Delete Failed",
+        text: error.response?.data?.message || "Something went wrong.",
+      });
     }
   };
 
   // ================= Status =================
 
-  const handleStatus = async (row) => {
-    const status = row.status === 1 ? 0 : 1;
+  // const handleStatus = async (id) => {
+  //   const status = id.status === 1 ? 0 : 1;
+
+  //   const result = await Swal.fire({
+  //     title: "Change Status?",
+  //     text: "Do you want to update employee status?",
+  //     icon: "question",
+  //     showCancelButton: true,
+  //     confirmButtonText: "Yes",
+  //     confirmButtonColor: "#4f46e5",
+  //   });
+
+  //   if (!result.isConfirmed) return;
+
+  //   try {
+  //     const res = await axiosInstance.put(
+  //       `/employee/updateEmployeeStatus/${id}`,
+  //       {
+  //         status,
+  //       }
+  //     );
+
+  //     if (res.data.success) {
+  //       Swal.fire({
+  //         icon: "success",
+  //         title: res.data.message,
+  //         timer: 1200,
+  //         showConfirmButton: false,
+  //       });
+
+  //       setUpdatedEmployeeTable(new Date().getTime());
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const handleStatus = async (employee) => {
+    const status = employee.status === 1 ? 0 : 1;
 
     const result = await Swal.fire({
       title: "Change Status?",
@@ -121,10 +151,10 @@ const EmployeeDataTable = ({
 
     try {
       const res = await axiosInstance.put(
-        `/employee/updateEmployeeStatus/${row.id}`,
+        `/employee/updateEmployeeStatus/${employee.id}`,
         {
           status,
-        }
+        },
       );
 
       if (res.data.success) {
@@ -138,7 +168,11 @@ const EmployeeDataTable = ({
         setUpdatedEmployeeTable(new Date().getTime());
       }
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Status Update Failed",
+        text: error.response?.data?.message || "Something went wrong.",
+      });
     }
   };
 
@@ -155,7 +189,7 @@ const EmployeeDataTable = ({
             className="employee-avatar"
             style={{
               background: getAvatarColor(
-                `${rowData.first_name}${rowData.last_name}`
+                `${rowData.first_name}${rowData.last_name}`,
               ),
             }}
           >
@@ -200,13 +234,31 @@ const EmployeeDataTable = ({
       field: "status",
       header: "Status",
       body: (rowData) => (
-        <span
-          className={`status-badge ${
-            rowData.status === 1 ? "active" : "in-active"
-          }`}
-        >
-          {rowData.status === 1 ? "Active" : "Inactive"}
-        </span>
+        <div className="d-flex align-items-center" style={{ gap: "10px" }}>
+          <div className="form-check form-switch m-0">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              role="switch"
+              checked={rowData.status === 1}
+              onChange={() => handleStatus(rowData)}
+              style={{
+                cursor: "pointer",
+                width: "45px",
+                height: "22px",
+              }}
+            />
+          </div>
+
+          <span
+            style={{
+              fontWeight: "600",
+              color: rowData.status === 1 ? "#198754" : "#dc3545",
+            }}
+          >
+            {rowData.status === 1 ? "Active" : "Inactive"}
+          </span>
+        </div>
       ),
     },
     {
@@ -219,31 +271,22 @@ const EmployeeDataTable = ({
       body: (rowData) => (
         <div className="action-group">
           <Button
-        variant="warning"
-        size="sm"
-        title="Edit employee"
-        onClick={() => handleEdit(rowData)}
-      >
-        <FaEdit />
-      </Button>
+            variant="warning"
+            size="sm"
+            title="Edit employee"
+            onClick={() => handleEdit(rowData)}
+          >
+            <FaEdit />
+          </Button>
 
-      <Button
-        variant="secondary"
-        size="sm"
-        title={rowData.status === 1 ? "Deactivate" : "Activate"}
-        onClick={() => handleStatus(rowData.id)}
-      >
-        <FaBan />
-      </Button>
-
-      <Button
-        variant="danger"
-        size="sm"
-        title="Delete employee"
-        onClick={() => handleDelete(rowData.id)}
-      >
-        <FaTrash />
-      </Button>
+          <Button
+            variant="danger"
+            size="sm"
+            title="Delete employee"
+            onClick={() => handleDelete(rowData.id)}
+          >
+            <FaTrash />
+          </Button>
         </div>
       ),
     },
@@ -251,11 +294,7 @@ const EmployeeDataTable = ({
 
   return (
     <>
-      <DynamicTable
-        data={employees}
-        columns={columns}
-        loading={loading}
-      />
+      <DynamicTable data={employees} columns={columns} loading={loading} />
 
       <UpdateEmployee
         showEmployee={showEmployee}
